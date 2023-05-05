@@ -3,10 +3,19 @@ import { accelerometer } from 'react-native-sensors'
 import { Alert, Vibration } from 'react-native'
 import { throttle } from 'lodash'
 
+/**
+ * AlertMouvement is a component that detects shaking using the device's accelerometer and triggers an alert and vibration
+ * @returns {null} Returns null because this component doesn't have any visual content
+ */
 const AlertMouvement = () => {
-  const threshold = 40 // Seuil de détection de secousse
-  const alertDelay = 3000 // Délai minimum entre deux alertes (en millisecondes)
+  const threshold = 50 // Shake detection threshold
+  const alertDelay = 3000 // Minimum delay between two alerts (in milliseconds)
 
+  /**
+   * Checks if the provided accelerometer data indicates a shake
+   * @param {object} data - Accelerometer data object with x, y, and z properties
+   * @returns {boolean} True if a shake is detected, otherwise false
+   */
   const isShake = (data) => {
     return (
       Math.abs(data.x) > threshold ||
@@ -15,18 +24,26 @@ const AlertMouvement = () => {
     )
   }
 
+  /**
+   * Handles accelerometer data updates and triggers an alert if a shake is detected
+   * @param {object} data - Accelerometer data object with x, y, and z properties
+   */
   const handleAcceleration = (data) => {
     if (isShake(data)) {
-      // Si une secousse est détectée, déclencher l'alerte
+      // If a shake is detected, trigger the alert
       sendAlert()
     }
   }
 
+  /**
+   * Sends an alert and triggers a vibration
+   * Throttled to prevent multiple alerts within the specified alertDelay
+   */
   const sendAlert = throttle(() => {
-    // Afficher une boîte de dialogue d'alerte
+    // Display an alert dialog
     Alert.alert(
-      'Secousse détectée',
-      'Une secousse a été détectée sur votre appareil.',
+      'Shake detected',
+      'A shake has been detected on your device.',
       [
         {
           text: 'OK',
@@ -36,21 +53,21 @@ const AlertMouvement = () => {
       { cancelable: false }
     )
 
-    // Faire vibrer le téléphone
+    // Trigger device vibration
     Vibration.vibrate()
   }, alertDelay)
 
   useEffect(() => {
-    // Initialiser les capteurs et les écouteurs d'événements
+    // Initialize the sensors and event listeners
     const subscription = accelerometer.subscribe(handleAcceleration)
 
-    // Nettoyer les ressources lors du démontage du composant
+    // Clean up resources when the component is unmounted
     return () => {
       subscription.unsubscribe()
     }
   }, [])
 
-  // Retourne un élément vide ici, car ce composant n'a pas besoin de contenu visuel
+  // Return null because this component doesn't have any visual content
   return null
 }
 
