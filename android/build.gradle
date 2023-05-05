@@ -1,4 +1,5 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
+import { MAPBOX_PRIVATE_TOKEN } from '@env'
 
 buildscript {
     ext {
@@ -9,10 +10,28 @@ buildscript {
 
         // We use NDK 23 which has both M1 support and is the side-by-side NDK version from AGP.
         ndkVersion = "23.1.7779620"
+        // Add mapbox for android
+        RNMapboxMapsImpl = "mapbox"
     }
     repositories {
         google()
         mavenCentral()
+        // Enable download of Maps Sdk
+        maven {
+            url 'https://api.mapbox.com/downloads/v2/releases/maven'
+            authentication {
+                basic(BasicAuthentication)
+            }
+            credentials {
+                // Do not change the username below.
+                // This should always be `mapbox` (not your username).
+                // CHANGE HERE IF MAPS NOT DOWNLOADING AND USE DEFAULT FREE MAPS
+                // https://github.com/rnmapbox/maps/blob/main/android/install.md
+                username = 'mapbox'
+                // Use the secret token you stored in gradle.properties as the password
+                password = project.properties[`${MAPBOX_PRIVATE_TOKEN}`] ?: ""
+            }
+        }
     }
     dependencies {
         classpath("com.android.tools.build:gradle:7.3.1")
