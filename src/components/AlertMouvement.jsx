@@ -4,7 +4,7 @@ import { Alert, Vibration } from 'react-native'
 import { throttle } from 'lodash'
 
 const AlertMouvement = () => {
-  const threshold = 20 // Seuil de détection de secousse
+  const threshold = 40 // Seuil de détection de secousse
   const alertDelay = 3000 // Délai minimum entre deux alertes (en millisecondes)
 
   const isShake = (data) => {
