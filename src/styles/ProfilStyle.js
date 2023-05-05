@@ -1,6 +1,9 @@
 import { StyleSheet } from 'react-native'
-import { GlobalStyles } from './Global'
 
 export const styles = StyleSheet.create({
-  ...GlobalStyles
+  Container: {
+    flex: 0.5,
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
 })
