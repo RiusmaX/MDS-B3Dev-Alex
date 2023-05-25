@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, Alert } from 'react-native' // Ajout de la fonction Alert
-import { Button } from '@rneui/themed'
+import { View, Text, Alert, Button } from 'react-native' // Ajout de la fonction Alert
 import LinearGradient from 'react-native-linear-gradient'
 import Geolocation from '@react-native-community/geolocation'
 import { styles } from '../styles/HomeStyle'
@@ -17,6 +16,7 @@ function AlertScreen ({ navigation }) {
         setLatitude(position.coords.latitude)
         setLongitude(position.coords.longitude)
       },
+
       error => alert(error.message),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
     )
@@ -25,35 +25,43 @@ function AlertScreen ({ navigation }) {
   const showAlert = () => {
     Alert.alert(
       'Êtes-vous la victime ou témoin ?', // Titre de la boîte de dialogue
-    `Latitude: ${latitude} Longitude: ${longitude}`, // Message incluant les coordonnées de géolocalisation
-    [
-      {
-        text: 'Victime',
-        onPress: () => setAlertType('Victime'), // Mettre à jour l'état avec le choix de l'utilisateur
-        style: 'cancel'
-      },
-      { text: 'Témoin', onPress: () => setAlertType('Témoin') }
-    ],
-    { cancelable: false }
+      `Latitude: ${latitude} \n Longitude: ${longitude}`,
+      [
+        {
+          text: 'Victime',
+          onPress: () => setAlertType('Victime'), // Mettre à jour l'état avec le choix de l'utilisateur
+          style: 'cancel'
+        },
+        {
+          text: 'Témoin',
+          onPress: () => setAlertType('Témoin'),
+          style: 'cancel'
+        }
+      ],
+      { cancelable: false }
     )
   }
 
   return (
     <View style={styles.container}>
       <Button
-        ViewComponent={LinearGradient} // Don't forget this!
+        ViewComponent={LinearGradient}
         linearGradientProps={{
           colors: [Colors.primary, Colors.secondary],
-          start: { x: 0, y: 0.5 },
-          end: { x: 1, y: 0.5 }
+          start: { x: 0, y: 1 },
+          end: { x: 1, y: 1 }
         }}
         onPress={() => {
-          showAlert() // Ouvrir la boîte de dialogue lorsque le bouton est cliqué
           getLocation() // Obtenir la géolocalisation lorsque le bouton est cliqué
+          showAlert() // Ouvrir la boîte de dialogue lorsque le bouton est cliqué
         }}
         title='ALERT ALEX'
       />
-
+      {latitude && longitude && alertType && ( // Afficher le choix de l'utilisateur lorsque l'état est défini
+        <Text>
+          Latitude: {latitude}, Longitude: {longitude}, Type d'alerte: {alertType}
+        </Text>
+      )}
     </View>
   )
 }
