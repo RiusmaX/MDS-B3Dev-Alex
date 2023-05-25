@@ -1,15 +1,12 @@
 import { Button, StyleSheet, Text, View } from 'react-native'
-import { styles } from '../styles/HomeStyle'
+import { styles_ } from '../styles/HomeStyle'
 import { useEffect } from 'react'
-import { getUserLocation, registerUserLocation, createTables } from '../database/db-service'
+import { createTables } from '../database/db-service'
 
 function Home ({ navigation }) {
   
   useEffect(() => {
     createTables()
-    registerUserLocation(888,10,5)
-    getUserLocation().then(results => console.log(results))
-    // const location = getUserLocation()
   }, [])
   
   return (
