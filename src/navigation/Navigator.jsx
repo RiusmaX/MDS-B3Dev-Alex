@@ -1,24 +1,32 @@
-import { NavigationContainer } from '@react-navigation/native'
-import Home from '../screens/Home'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import Home from '../screens/Home'
 import Icon from 'react-native-vector-icons/Ionicons'
-import { Colors } from '../styles/Global'
+import Location from '../screens/Location'
+
 const TabStack = createBottomTabNavigator()
 
 function Navigator () {
   return (
-    <NavigationContainer>
-      <TabStack.Navigator initialRouteName='Home'>
-        <TabStack.Screen
-          name='Home'
-          component={Home}
-          options={{
-            tabBarIcon: ({ focused, color, size }) =>
-              <Icon name={focused ? 'home' : 'home-outline'} size={size} color={Colors.primary} />
-          }}
-        />
-      </TabStack.Navigator>
-    </NavigationContainer>
+    <TabStack.Navigator initialRouteName='Home'>
+      <TabStack.Screen
+        name='Home'
+        component={Home}
+        options={{
+          tabBarIcon: ({ focused, color, size }) => {
+            return <Icon name={focused ? 'home' : 'home-outline'} size={size} color={color} />
+          }
+        }}
+      />
+      <TabStack.Screen
+        name='Location'
+        component={Location}
+        options={{
+          tabBarIcon: ({ focused, color, size }) => {
+            return <Icon name={focused ? 'location' : 'location-outline'} size={size} color={color} />
+          }
+        }}
+      />
+    </TabStack.Navigator>
   )
 }
 
