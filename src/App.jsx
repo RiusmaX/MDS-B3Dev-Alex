@@ -13,6 +13,7 @@ import {
 } from 'react-native'
 import { Colors, GlobalStyles } from './styles/Global'
 import Navigator from './navigation/Navigator'
+import AlertMouvement from './components/AlertMouvement'
 
 function App () {
   const isDarkMode = useColorScheme() === 'dark'
@@ -27,6 +28,7 @@ function App () {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
+      <AlertMouvement />
       <Navigator />
     </View>
 
