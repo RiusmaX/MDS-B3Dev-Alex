@@ -9,6 +9,7 @@ buildscript {
         ndkVersion = "23.1.7779620"
         playServicesVersion = "17.0.0"
         androidMapsUtilsVersion = "2.3.0"
+        RNMapboxMapsImpl = "mapbox" 
     }
     repositories {
         google()
