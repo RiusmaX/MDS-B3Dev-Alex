@@ -5,10 +5,12 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Icon from 'react-native-vector-icons/Ionicons'
 import Icon2 from 'react-native-vector-icons/FontAwesome5'
 import { Colors } from '../styles/Global'
+
 const TabStack = createBottomTabNavigator()
 
 function Navigator () {
   return (
+
     <NavigationContainer>
       <TabStack.Navigator initialRouteName='Home'>
         <TabStack.Screen
@@ -27,6 +29,7 @@ function Navigator () {
               <Icon2 name={focused ? 'user' : 'user-circle'} size={size} color={Colors.primary} />
           }}
         />
+
       </TabStack.Navigator>
     </NavigationContainer>
   )
