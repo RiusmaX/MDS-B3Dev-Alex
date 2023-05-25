@@ -2,34 +2,36 @@ import { openDatabase } from 'react-native-sqlite-storage';
 
 var db = openDatabase({ name: 'LocationDatabase.db' });
 
+let createTables = () => {
+  db.transaction(function (txn) {
+    txn.executeSql(
+      `CREATE TABLE IF NOT EXISTS location (
+        loc_id INTEGER PRIMARY KEY AUTOINCREMENT,
+        loc_latitude FLOAT,
+        loc_longitude FLOAT,
+        loc_altitude FLOAT
+      );`,
+      [],
+      function (tx, res) {
+        console.log('Table created successfully');
+      },
+      function (tx, err) {
+        console.log('Error while creating the table:', err);
+      }
+    );
+  });
+}
+
 let registerUserLocation = (latitude, longitude, altitude) => {
 
-    db.transaction(function (txn) {
-        txn.executeSql(
-          `CREATE TABLE IF NOT EXISTS location (
-            loc_id INTEGER PRIMARY KEY AUTOINCREMENT,
-            loc_latitude FLOAT,
-            loc_longitude FLOAT,
-            loc_altitude FLOAT
-          );`,
-          [],
-          function (tx, res) {
-            console.log('Table created successfully');
-          },
-          function (tx, err) {
-            console.log('Error while creating the table:', err);
-          }
-        );
-      });
-
-    db.transaction(function (tx) {
+  db.transaction(function (tx) {
     tx.executeSql(
         `INSERT INTO location (loc_latitude, loc_longitude, loc_altitude) VALUES (?,?,?)`,
         [latitude, longitude, altitude],
         (tx, results) => {
         console.log('Results', results.rowsAffected);
         if (results.rowsAffected > 0) {
-           console.log(
+          console.log(
             'Success',
             'You are Registered Successfully',
             [
@@ -43,7 +45,7 @@ let registerUserLocation = (latitude, longitude, altitude) => {
         } else console.log('Registration Failed');
         }
     );
-    });
+  });
 };
 
 let getUserLocation = () => {
@@ -69,5 +71,6 @@ let getUserLocation = () => {
 
 export {
     registerUserLocation,
-    getUserLocation  
+    getUserLocation ,
+    createTables 
 } 
