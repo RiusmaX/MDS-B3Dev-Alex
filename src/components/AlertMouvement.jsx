@@ -8,7 +8,7 @@ import { throttle } from 'lodash'
  * @returns {null} Returns null because this component doesn't have any visual content
  */
 const AlertMouvement = () => {
-  const threshold = 50 // Shake detection threshold
+  const threshold = 100 // Shake detection threshold
   const alertDelay = 3000 // Minimum delay between two alerts (in milliseconds)
 
   /**
