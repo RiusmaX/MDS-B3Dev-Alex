@@ -10,10 +10,13 @@
     "test": "jest"
   },
   "dependencies": {
+    "@mapbox/mapbox-sdk": "^0.15.1",
+    "@react-native-mapbox-gl/maps": "^8.6.0-beta.0",
     "@react-navigation/bottom-tabs": "^6.5.7",
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/native-stack": "^6.9.12",
     "@rnmapbox/maps": "rnmapbox/maps#main",
+    "@turf/helpers": "^6.5.0",
     "react": "18.2.0",
     "react-native": "0.71.7",
     "react-native-dotenv": "^3.4.8",

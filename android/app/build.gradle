@@ -93,6 +93,10 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+
     namespace "com.alex"
     defaultConfig {
         applicationId "com.alex"
