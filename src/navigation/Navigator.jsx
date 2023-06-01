@@ -3,6 +3,8 @@ import Home from '../screens/Home'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { Colors } from '../styles/Global'
+import AlertScreen from '../screens/Alert'
+
 const TabStack = createBottomTabNavigator()
 
 function Navigator () {
@@ -15,6 +17,15 @@ function Navigator () {
           options={{
             tabBarIcon: ({ focused, color, size }) =>
               <Icon name={focused ? 'home' : 'home-outline'} size={size} color={Colors.primary} />
+          }}
+        />
+        <TabStack.Screen
+          name='Alert'
+          component={AlertScreen}
+          options={{
+            tabBarIcon: ({ focused, color, size }) =>
+              <Icon name={focused ? 'ios-alert-circle' : 'ios-alert-circle-outline'} size={size} color={Colors.primary} />
+
           }}
         />
       </TabStack.Navigator>
