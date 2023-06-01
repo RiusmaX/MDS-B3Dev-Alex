@@ -18,6 +18,20 @@ function App () {
   const [isOnboardingCompleted, setOnboardingCompleted] = useState(false)
 
   useEffect(() => {
+    const externalUserId = '123456789' // You will supply the external user id to the OneSignal SDK
+    OneSignal.setExternalUserId(externalUserId)
+
+    // Pass in email provided by customer
+    OneSignal.setEmail('example@domain.com')
+
+    // Pass in phone number provided by customer
+    OneSignal.setSMSNumber('+11234567890')
+
+    OneSignal.sendTag('first_name', 'Maxime')
+    OneSignal.sendTag('last_name', 'Prouzat')
+    OneSignal.sendTag('age_range', '18-25')
+    OneSignal.sendTag('postcode', '44300')
+    
     // Vérifie si l'utilisateur a déjà terminé le Onboarding lors du montage initial
     const checkOnboardingStatus = async () => {
       try {
@@ -54,23 +68,6 @@ function App () {
   }
 
   // Si le Onboarding est terminé, affiche le reste de l'application
-
-  useEffect(() => {
-    const externalUserId = '123456789' // You will supply the external user id to the OneSignal SDK
-    OneSignal.setExternalUserId(externalUserId)
-
-    // Pass in email provided by customer
-    OneSignal.setEmail('example@domain.com')
-
-    // Pass in phone number provided by customer
-    OneSignal.setSMSNumber('+11234567890')
-
-    OneSignal.sendTag('first_name', 'Maxime')
-    OneSignal.sendTag('last_name', 'Prouzat')
-    OneSignal.sendTag('age_range', '18-25')
-    OneSignal.sendTag('postcode', '44300')
-  }, [])
-
   return (
     <View style={[{ flex: 1 }, backgroundStyle]}>
       <StatusBar
