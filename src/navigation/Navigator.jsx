@@ -4,6 +4,7 @@ import AuthFirebaseScreen from '../screens/AuthFirebaseScreen'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Icon from 'react-native-vector-icons/Ionicons'
 import { Colors } from '../styles/Global'
+import AlertScreen from '../screens/Alert'
 
 const TabStack = createBottomTabNavigator()
 
@@ -25,6 +26,11 @@ function Navigator () {
           options={{
             tabBarIcon: ({ focused, color, size }) =>
               <Icon name={focused ? 'lock-closed' : 'lock-closed-outline'} size={size} color={Colors.primary} />
+          name='Alert'
+          component={AlertScreen}
+          options={{
+            tabBarIcon: ({ focused, color, size }) =>
+              <Icon name={focused ? 'ios-alert-circle' : 'ios-alert-circle-outline'} size={size} color={Colors.primary} />
           }}
         />
       </TabStack.Navigator>
