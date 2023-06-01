@@ -1,28 +1,28 @@
-import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import React, { useState } from 'react'
+import { View, StyleSheet, Button } from 'react-native'
+import Informations from './Informations'
+import EditProfil from './EditProfil'
 
 const Profil = ({ navigation }) => {
-  const onPressEditProfil = () => {
-    navigation.navigate('EditProfil')
-  }
-
-  const onPressInformations = () => {
-    navigation.navigate('Informations')
-  }
+  const [showEdit, setShowEdit] = useState(false)
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.button} onPress={onPressEditProfil}>
-        <Text style={styles.buttonText}>Modifier Profil</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={onPressInformations}>
-        <Text style={styles.buttonText}>Informations</Text>
-      </TouchableOpacity>
+      {
+      showEdit
+        ? <EditProfil />
+        : <Informations />
+}
+      <Button title='EditProfil' onPress={() => setShowEdit(!showEdit)} />
+
     </View>
   )
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
   button: {
     backgroundColor: '#2196F3',
     padding: 10,

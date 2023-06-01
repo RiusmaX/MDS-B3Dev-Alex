@@ -1,24 +1,19 @@
 import React from 'react'
-import { View, Text, StyleSheet, Image, Button } from 'react-native'
+import { View, Text, StyleSheet, Image } from 'react-native'
 import { profilData } from '../database/profilData'
 
 const Informations = ({ navigation }) => {
-  const onPressEdit = () => {
-    navigation.navigate('EditProfil')
-  }
-
   const { name, email, age, country, occupation, profilePicUrl } = profilData[0]
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{name}</Text>
       <Image source={{ uri: profilePicUrl }} style={styles.image} />
-      <Text style={styles.text}>{`Nom : ${name}`}</Text>
-      <Text style={styles.text}>{`Email : ${email}`}</Text>
-      <Text style={styles.text}>{`Age : ${age}`}</Text>
-      <Text style={styles.text}>{`Pays : ${country}`}</Text>
-      <Text style={styles.text}>{`Travail : ${occupation}`}</Text>
-      <Button title='EditProfil' onPress={onPressEdit} />
+      <Text style={styles.text}>{`${name}`}</Text>
+      <Text style={styles.text}>{`${email}`}</Text>
+      <Text style={styles.text}>{`${age}`}</Text>
+      <Text style={styles.text}>{`${country}`}</Text>
+      <Text style={styles.text}>{`${occupation}`}</Text>
     </View>
   )
 }
@@ -43,6 +38,8 @@ const styles = StyleSheet.create({
     height: 40,
     width: '80%',
     borderColor: 'gray',
+    color: 'black',
+    paddingTop: 10,
     borderWidth: 1,
     borderRadius: 5,
     paddingHorizontal: 10,
