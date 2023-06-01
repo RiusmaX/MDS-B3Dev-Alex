@@ -1,30 +1,33 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, TextInput, Button } from 'react-native'
+import { View, Text, StyleSheet, TextInput, Button, Image } from 'react-native'
 import { Colors } from '../styles/Global'
 import { profilData } from '../database/profilData'
 
 const EditProfil = ({ navigation }) => {
-  const [name, setName] = useState(profilData.name)
-  const [email, setEmail] = useState(profilData.email)
-  const [age, setAge] = useState(profilData.age.toString())
-  const [country, setCountry] = useState(profilData.country)
-  const [occupation, setOccupation] = useState(profilData.occupation)
+  const [name, setName] = useState(profilData[0].name)
+  const [email, setEmail] = useState(profilData[0].email)
+  const [age, setAge] = useState(profilData[0].age.toString())
+  const [country, setCountry] = useState(profilData[0].country)
+  const [occupation, setOccupation] = useState(profilData[0].occupation)
+  const [profilePicUrl] = useState(profilData[0].profilePicUrl)
 
   const handleSave = () => {
-    // Mettez à jour les données de profil avec les nouvelles valeurs
-    profilData.name = name
-    profilData.email = email
-    profilData.age = parseInt(age)
-    profilData.country = country
-    profilData.occupation = occupation
+    profilData[0].name = name
+    profilData[0].email = email
+    profilData[0].age = parseInt(age)
+    profilData[0].country = country
+    profilData[0].occupation = occupation
+    profilData[0].profilePicUrl = profilePicUrl
 
-    // Naviguez vers la page de profil une fois que les données ont été mises à jour
     navigation.navigate('Profil')
   }
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Modifier mon profil</Text>
+      <Image
+        source={{ uri: profilePicUrl }} style={styles.image}
+      />
       <TextInput
         style={styles.input}
         value={name}
@@ -81,6 +84,12 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 10,
     marginVertical: 10
+  },
+  image: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    marginVertical: 20
   }
 })
 

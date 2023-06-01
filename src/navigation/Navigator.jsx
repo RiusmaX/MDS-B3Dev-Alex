@@ -1,6 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native'
 import Home from '../screens/Home'
-import Profil from '../screens/Profil'
+import Profil from '../screens/Informations'
+import EditProfil from '../screens/EditProfil' // Importez le composant EditProfil
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Icon from 'react-native-vector-icons/Ionicons'
 import Icon2 from 'react-native-vector-icons/FontAwesome5'
@@ -10,7 +11,6 @@ const TabStack = createBottomTabNavigator()
 
 function Navigator () {
   return (
-
     <NavigationContainer>
       <TabStack.Navigator initialRouteName='Home'>
         <TabStack.Screen
@@ -27,6 +27,13 @@ function Navigator () {
           options={{
             tabBarIcon: ({ focused, color, size }) =>
               <Icon2 name={focused ? 'user' : 'user-circle'} size={size} color={Colors.primary} />
+          }}
+        />
+        <TabStack.Screen
+          name='EditProfil'
+          component={EditProfil}
+          options={{
+            tabBarVisible: false // Masquer la barre de navigation lors de l'édition du profil
           }}
         />
 

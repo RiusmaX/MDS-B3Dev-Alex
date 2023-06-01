@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, StyleSheet, Image, Button } from 'react-native'
 import { profilData } from '../database/profilData'
 
-const Profil = ({ navigation }) => {
+const Informations = ({ navigation }) => {
   const onPressEdit = () => {
     navigation.navigate('EditProfil')
   }
@@ -50,4 +50,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Profil
+export default Informations
