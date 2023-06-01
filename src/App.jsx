@@ -1,9 +1,17 @@
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ *
+ * @format
+ */
 import React, { useState, useEffect } from 'react'
 import { StatusBar, useColorScheme, View } from 'react-native'
-import { Colors } from './styles/Global'
+import { Colors /*, GlobalStyles */ } from './styles/Global'
 import Navigator from './navigation/Navigator'
+import OneSignal from 'react-native-onesignal'
 import Onboarding from './components/Onboarding'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+
 
 function App () {
   const isDarkMode = useColorScheme() === 'dark'
@@ -39,12 +47,30 @@ function App () {
     backgroundColor: isDarkMode ? Colors.backgroundDark : Colors.backgroundLight
   }
 
+
   if (!isOnboardingCompleted) {
     // Si le Onboarding n'est pas terminé, affiche le composant Onboarding
     return <Onboarding onDone={handleOnboardingComplete} />
   }
 
   // Si le Onboarding est terminé, affiche le reste de l'application
+
+  useEffect(() => {
+    const externalUserId = '123456789' // You will supply the external user id to the OneSignal SDK
+    OneSignal.setExternalUserId(externalUserId)
+
+    // Pass in email provided by customer
+    OneSignal.setEmail('example@domain.com')
+
+    // Pass in phone number provided by customer
+    OneSignal.setSMSNumber('+11234567890')
+
+    OneSignal.sendTag('first_name', 'Maxime')
+    OneSignal.sendTag('last_name', 'Prouzat')
+    OneSignal.sendTag('age_range', '18-25')
+    OneSignal.sendTag('postcode', '44300')
+  }, [])
+
   return (
     <View style={[{ flex: 1 }, backgroundStyle]}>
       <StatusBar
