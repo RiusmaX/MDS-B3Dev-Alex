@@ -10,14 +10,19 @@ export const Colors = StyleSheet.create({
   violet: '#544594'
 })
 
-export const Sizes = StyleSheet.create({
+export const Fonts = StyleSheet.create({
+  title: {
+    color: Colors.backgroundDark,
+    fontFamily: 'FontsFree-Net-All-Round-Gothic-Medium'
+  },
   text: {
-    color: Colors.backgroundDark
+    color: Colors.backgroundDark,
+    fontFamily: 'PTSans-Regular'
   }
 })
 
 export const GlobalStyles = StyleSheet.create({
-  ...Sizes,
+  ...Fonts,
   container: {
     flex: 1,
     alignItems: 'center',
