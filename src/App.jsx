@@ -12,6 +12,8 @@ import {
 } from 'react-native/Libraries/NewAppScreen'
 
 import Navigator from './navigation/Navigator'
+import { createTables } from './database/db-service'
+import { useEffect } from 'react'
 
 const styles = StyleSheet.create({
   container: {
@@ -26,6 +28,10 @@ function App () {
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter
   }
+
+  useEffect(() => {
+    createTables()
+  }, [])
 
   return (
     <View style={styles.container}>

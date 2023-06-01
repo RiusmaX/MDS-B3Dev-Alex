@@ -2,6 +2,14 @@ import { openDatabase } from 'react-native-sqlite-storage';
 
 var db = openDatabase({ name: 'LocationDatabase.db' });
 
+/**
+ * Créer la table location avec les colonnes :
+ * loc_id => id auto incrémenté
+ * loc_latitute => lattitude
+ * loc_longitude => longitude
+ * loc_altitude => altitude
+ */
+
 let createTables = () => {
   db.transaction(function (txn) {
     txn.executeSql(
@@ -22,6 +30,14 @@ let createTables = () => {
   });
 }
 
+/**
+ * Insert les données de localisation de l'utilisateur dans la table location
+ * 
+ * @param {*} latitude 
+ * @param {*} longitude 
+ * @param {*} altitude 
+ */
+
 let registerUserLocation = (latitude, longitude, altitude) => {
 
   db.transaction(function (tx) {
@@ -40,6 +56,11 @@ let registerUserLocation = (latitude, longitude, altitude) => {
     );
   });
 };
+
+/**
+ * Renvoie les informations de localisation de l'utilisateur
+ * @returns promise
+ */
 
 let getUserLocation = () => {
     return new Promise((resolve, reject) => {
@@ -62,6 +83,10 @@ let getUserLocation = () => {
     });
   };
 
+  /**
+   * Supprime les données de la table location
+   */
+
   let deleteUserLocation = () => {
     return new Promise((resolve, reject) => {
       db.transaction((tx) => {
@@ -69,7 +94,7 @@ let getUserLocation = () => {
           "DELETE FROM location;",
           [],
           (tx, results) => {
-            resolve(results);
+            console.log(results)
           },
           (error) => {
             reject(error);

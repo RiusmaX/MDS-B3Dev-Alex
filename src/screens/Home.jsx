@@ -1,14 +1,7 @@
 import { Button, StyleSheet, Text, View } from 'react-native'
-import { styles_ } from '../styles/HomeStyle'
-import { useEffect } from 'react'
-import { createTables } from '../database/db-service'
 
 function Home ({ navigation }) {
-  
-  useEffect(() => {
-    createTables()
-  }, [])
-  
+    
   return (
     <View style={styles.container}>
       <Text>HOME SCREEN</Text>
