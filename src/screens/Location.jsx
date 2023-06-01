@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Button, FlatList, PermissionsAndroid, StyleSheet, Text, View, Alert } from 'react-native'
 import Geolocation from '@react-native-community/geolocation'
-import { getUserLocation, registerUserLocation } from '../database/db-service'
+import { getUserLocation, registerUserLocation, deleteUserLocation } from '../database/db-service'
 
 
 function Location () {
@@ -15,6 +15,19 @@ function Location () {
     Alert.alert(
       'User location', 
       `${userLocations}`, 
+      [
+        { 
+          text: 'OK', 
+          onPress: () => console.log('OK Pressed')
+        },
+      ]);
+  }
+
+  const alertMessage = (message) => {
+
+    Alert.alert(
+      'Info', 
+      `${message}`, 
       [
         { 
           text: 'OK', 
@@ -89,8 +102,14 @@ function Location () {
           <FlatList data={locations} renderItem={renderLocationItem} />
           )}
       <Button
-        title='Get user location'
+        title='Get user locations'
         onPress={() => {getUserLocation().then(results => alert(results))}
+        }
+      />
+
+      <Button
+        title='Delete user locations'
+        onPress={() => {deleteUserLocation().then(alertMessage('User locations deleted'))}
         }
       />
     </View>

@@ -34,13 +34,6 @@ let registerUserLocation = (latitude, longitude, altitude) => {
           console.log(
             'Success',
             'You are Registered Successfully',
-            [
-                {
-                text: 'Ok',
-                onPress: () => navigation.navigate('HomeScreen'),
-                },
-            ],
-            { cancelable: false }
             );
         } else console.log('Registration Failed');
         }
@@ -56,9 +49,27 @@ let getUserLocation = () => {
           [],
           (tx, results) => {
             var temp = [];
-            for (let i = 0; i < results.rows.length; ++i)
+            for (let i = 0; i < results.rows.length; ++i) {
               temp.push(results.rows.item(i));
+            }
             resolve(temp);
+          },
+          (error) => {
+            reject(error);
+          }
+        );
+      });
+    });
+  };
+
+  let deleteUserLocation = () => {
+    return new Promise((resolve, reject) => {
+      db.transaction((tx) => {
+        tx.executeSql(
+          "DELETE FROM location;",
+          [],
+          (tx, results) => {
+            resolve(results);
           },
           (error) => {
             reject(error);
@@ -72,5 +83,6 @@ let getUserLocation = () => {
 export {
     registerUserLocation,
     getUserLocation ,
-    createTables 
+    createTables,
+    deleteUserLocation 
 } 
