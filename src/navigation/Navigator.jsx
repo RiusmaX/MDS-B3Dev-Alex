@@ -1,5 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native'
 import Home from '../screens/Home'
+import AuthFirebaseScreen from '../screens/AuthFirebaseScreen'
 import Profil from '../screens/Profil'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -29,6 +30,15 @@ function Navigator () {
             tabBarIcon: ({ focused, size }) => (
               <Icon2 name={focused ? 'user' : 'user-circle'} size={size} color={Colors.primary} />
             )
+          }}
+        />
+        <TabStack.Screen
+          name='Authentification'
+          component={AuthFirebaseScreen}
+          options={{
+            tabBarIcon: ({ focused, color, size }) => (
+              <Icon name={focused ? 'lock-closed' : 'lock-closed-outline'} size={size} color={Colors.primary} />
+                   )
           }}
         />
         <TabStack.Screen

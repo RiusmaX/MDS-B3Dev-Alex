@@ -2,14 +2,12 @@ import { NavigationContainer } from '@react-navigation/native'
 import React, { useState, useEffect } from 'react'
 import { StatusBar, useColorScheme, View, StyleSheet } from 'react-native'
 import { Colors /*, GlobalStyles */ } from './styles/Global'
-import { NavigationContainer } from '@react-navigation/native'
 import Navigator from './navigation/Navigator'
 import { createTables } from './database/db-service'
-import { useEffect } from 'react'
 import OneSignal from 'react-native-onesignal'
+import AlertMouvement from './components/AlertMouvement'
 import Onboarding from './components/Onboarding'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-
 
 const styles = StyleSheet.create({
   container: {
@@ -85,6 +83,7 @@ function App () {
       />
       <NavigationContainer>
         <Navigator />
+        <AlertMouvement />
       </NavigationContainer>
     </View>
   )
