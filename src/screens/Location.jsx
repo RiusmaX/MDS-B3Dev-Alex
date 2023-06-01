@@ -1,8 +1,33 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, FlatList, PermissionsAndroid, StyleSheet, Text, View, Alert } from 'react-native'
-import Geolocation from '@react-native-community/geolocation'
 import { getUserLocation, registerUserLocation, deleteUserLocation } from '../database/db-service'
+import Geolocation from '@react-native-community/geolocation'
+import BackgroundService from 'react-native-background-actions'
 
+const sleep = (time) => new Promise((resolve) => setTimeout(() => resolve(), time))
+
+const veryIntensiveTask = async () => {
+  // Example of an infinite loop task
+  await new Promise(async (resolve) => {
+    for (let i = 0; BackgroundService.isRunning(); i++) {
+      console.log(i)
+      await sleep(1000)
+    }
+    resolve()
+  })
+}
+
+const options = {
+  taskName: 'LocationTask',
+  taskTitle: 'Location Task',
+  taskDesc: 'Background task for location updates',
+  taskIcon: {
+    name: 'ic_launcher',
+    type: 'mipmap'
+  },
+  color: '#ff00ff',
+  linkingURI: 'yourSchemeHere://chat/jane' // See Deep Linking for more info
+}
 
 function Location () {
 
@@ -52,8 +77,28 @@ function Location () {
 
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
           console.log('Location permission granted')
-          const intervalId = setInterval(() => {
-            Geolocation.watchPosition(
+          BackgroundService.start(veryIntensiveTask, options)
+          let intervalId
+
+          Geolocation.getCurrentPosition(
+            (position) => {
+              setLocations((prevLocations) => [...prevLocations, position])
+              console.log(position)
+            },
+            (error) => {
+              console.log(error)
+            },
+            {
+              enableHighAccuracy: true,
+              timeout: 15000,
+              maximumAge: 10000,
+              distanceFilter: 1,
+              useSignificantChanges: true
+            }
+          )
+
+          intervalId = setInterval(() => {
+            Geolocation.getCurrentPosition(
               (position) => {
                 setLocations((prevLocations) => [...prevLocations, position])
                 console.log(position)
@@ -67,13 +112,15 @@ function Location () {
                 timeout: 15000,
                 maximumAge: 10000,
                 distanceFilter: 1,
-                fastestInterval: 2000,
-                showLocationDialog: true,
                 useSignificantChanges: true
               }
             )
-            return () => clearInterval(intervalId)
           }, 1000)
+
+          return () => {
+            clearInterval(intervalId)
+            console.log('Location updates stopped')
+          }
         } else {
           console.log('Location permission denied')
         }
@@ -81,7 +128,12 @@ function Location () {
         console.warn(err)
       }
     }
+
     requestLocationPermission()
+    return () => {
+      BackgroundService.stop()
+      console.log('Background task stopped')
+    }
   }, [])
 
   const renderLocationItem = ({ item }) => {

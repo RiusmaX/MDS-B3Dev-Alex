@@ -28,6 +28,7 @@
     "react-native-onboarding-swiper": "^1.2.0",
     "react-native-paper": "^5.7.2",
     "react-native-permissions": "^3.8.0",
+    "react-native-background-actions": "^3.0.0",
     "react-native-geolocation-service": "^5.3.1",
     "react-native-onesignal": "^4.5.1",
     "react-native-reanimated": "^3.1.0",
