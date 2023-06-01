@@ -14,6 +14,7 @@ import {
 import { Colors /*, GlobalStyles */ } from './styles/Global'
 import Navigator from './navigation/Navigator'
 import OneSignal from 'react-native-onesignal'
+import AlertMouvement from './components/AlertMouvement'
 
 function App () {
   const isDarkMode = useColorScheme() === 'dark'
@@ -45,6 +46,7 @@ function App () {
         backgroundColor={backgroundStyle.backgroundColor}
       />
       <Navigator />
+      <AlertMouvement />
     </View>
 
   )
