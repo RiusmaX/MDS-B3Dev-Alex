@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { FlatList, PermissionsAndroid, StyleSheet, Text, View } from 'react-native'
+import { Button, FlatList, PermissionsAndroid, StyleSheet, Text, View, Alert } from 'react-native'
+import { getUserLocation, registerUserLocation, deleteUserLocation } from '../database/db-service'
 import Geolocation from '@react-native-community/geolocation'
 import BackgroundService from 'react-native-background-actions'
 
@@ -29,7 +30,36 @@ const options = {
 }
 
 function Location () {
+
   const [locations, setLocations] = useState([])
+
+  const alert = (results) => {
+
+    const userLocations = results.map(elm => `${elm.loc_id} : Latitude : ${elm.loc_latitude} , Longitude : ${elm.loc_longitude}`).join('\n');
+
+    Alert.alert(
+      'User location', 
+      `${userLocations}`, 
+      [
+        { 
+          text: 'OK', 
+          onPress: () => console.log('OK Pressed')
+        },
+      ]);
+  }
+
+  const alertMessage = (message) => {
+
+    Alert.alert(
+      'Info', 
+      `${message}`, 
+      [
+        { 
+          text: 'OK', 
+          onPress: () => console.log('OK Pressed')
+        },
+      ]);
+  }
 
   useEffect(() => {
     const requestLocationPermission = async () => {
@@ -44,6 +74,7 @@ function Location () {
             buttonPositive: 'OK'
           }
         )
+
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
           console.log('Location permission granted')
           BackgroundService.start(veryIntensiveTask, options)
@@ -71,6 +102,7 @@ function Location () {
               (position) => {
                 setLocations((prevLocations) => [...prevLocations, position])
                 console.log(position)
+                registerUserLocation(position.coords.latitude,position.coords.longitude,position.coords.altitude)
               },
               (error) => {
                 console.log(error)
@@ -121,6 +153,17 @@ function Location () {
         : (
           <FlatList data={locations} renderItem={renderLocationItem} />
           )}
+      <Button
+        title='Get user locations'
+        onPress={() => {getUserLocation().then(results => alert(results))}
+        }
+      />
+
+      <Button
+        title='Delete user locations'
+        onPress={() => {deleteUserLocation().then(alertMessage('User locations deleted'))}
+        }
+      />
     </View>
   )
 }
