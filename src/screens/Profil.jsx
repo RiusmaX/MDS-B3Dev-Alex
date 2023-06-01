@@ -1,3 +1,4 @@
+import React from 'react'
 import { View, Text, StyleSheet, Image, Button } from 'react-native'
 import { profilData } from '../database/profilData'
 
@@ -5,15 +6,18 @@ const Profil = ({ navigation }) => {
   const onPressEdit = () => {
     navigation.navigate('EditProfil')
   }
+
+  const { name, email, age, country, occupation, profilePicUrl } = profilData[0]
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{`${profilData.name}`}</Text>
-      <Image source={{ uri: profilData.profilePicUrl }} style={styles.image} />
-      <Text style={styles.text}>{`Nom : ${profilData.name}`}</Text>
-      <Text style={styles.text}>{`Email : ${profilData.email}`}</Text>
-      <Text style={styles.text}>{`Age : ${profilData.age}`}</Text>
-      <Text style={styles.text}>{`Pays : ${profilData.country}`}</Text>
-      <Text style={styles.text}>{`Travail : ${profilData.occupation}`}</Text>
+      <Text style={styles.title}>{name}</Text>
+      <Image source={{ uri: profilePicUrl }} style={styles.image} />
+      <Text style={styles.text}>{`Nom : ${name}`}</Text>
+      <Text style={styles.text}>{`Email : ${email}`}</Text>
+      <Text style={styles.text}>{`Age : ${age}`}</Text>
+      <Text style={styles.text}>{`Pays : ${country}`}</Text>
+      <Text style={styles.text}>{`Travail : ${occupation}`}</Text>
       <Button title='EditProfil' onPress={onPressEdit} />
     </View>
   )
