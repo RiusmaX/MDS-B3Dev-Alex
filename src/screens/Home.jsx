@@ -4,12 +4,11 @@ import { useEffect } from 'react'
 import { getUserLocation, registerUserLocation } from '../database/db-service'
 
 function Home () {
-
   useEffect(() => {
-    registerUserLocation(888,10,5)
+    registerUserLocation(888, 10, 5)
     getUserLocation().then(results => console.log(results))
     // const location = getUserLocation()
-}, [])
+  }, [])
 
   return (
     <View style={styles.container}>
