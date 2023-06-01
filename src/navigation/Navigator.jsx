@@ -3,6 +3,7 @@ import Home from '../screens/Home'
 import Profil from '../screens/Profil'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Icon from 'react-native-vector-icons/Ionicons'
+import Location from '../screens/Location'
 import Icon2 from 'react-native-vector-icons/FontAwesome5'
 import { Colors } from '../styles/Global'
 import AlertScreen from '../screens/Alert'
@@ -11,7 +12,6 @@ const TabStack = createBottomTabNavigator()
 
 function Navigator () {
   return (
-    <NavigationContainer>
       <TabStack.Navigator initialRouteName='Home'>
         <TabStack.Screen
           name='Home'
@@ -40,8 +40,16 @@ function Navigator () {
             )
           }}
         />
+        <TabStack.Screen
+          name='Location'
+          component={Location}
+          options={{
+            tabBarIcon: ({ focused, color, size }) => {
+              return <Icon name={focused ? 'location' : 'location-outline'} size={size} color={color} />
+            }
+          }}
+        />
       </TabStack.Navigator>
-    </NavigationContainer>
   )
 }
 

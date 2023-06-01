@@ -1,17 +1,22 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import { NavigationContainer } from '@react-navigation/native'
 import React, { useState, useEffect } from 'react'
-import { StatusBar, useColorScheme, View } from 'react-native'
+import { StatusBar, useColorScheme, View, StyleSheet } from 'react-native'
 import { Colors /*, GlobalStyles */ } from './styles/Global'
+import { NavigationContainer } from '@react-navigation/native'
 import Navigator from './navigation/Navigator'
+import { createTables } from './database/db-service'
+import { useEffect } from 'react'
 import OneSignal from 'react-native-onesignal'
 import Onboarding from './components/Onboarding'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center'
+  }
+})
 
 function App () {
   const isDarkMode = useColorScheme() === 'dark'
@@ -58,8 +63,12 @@ function App () {
   }
 
   const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.backgroundDark : Colors.backgroundLight
+    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter
   }
+
+  useEffect(() => {
+    createTables()
+  }, [])
 
 
   if (!isOnboardingCompleted) {
@@ -69,12 +78,14 @@ function App () {
 
   // Si le Onboarding est terminé, affiche le reste de l'application
   return (
-    <View style={[{ flex: 1 }, backgroundStyle]}>
+    <View style={styles.container}>
       <StatusBar
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      <Navigator />
+      <NavigationContainer>
+        <Navigator />
+      </NavigationContainer>
     </View>
   )
 }
