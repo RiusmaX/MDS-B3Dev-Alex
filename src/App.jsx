@@ -34,7 +34,7 @@ function App () {
     OneSignal.sendTag('last_name', 'Prouzat')
     OneSignal.sendTag('age_range', '18-25')
     OneSignal.sendTag('postcode', '44300')
-    
+
     // Vérifie si l'utilisateur a déjà terminé le Onboarding lors du montage initial
     const checkOnboardingStatus = async () => {
       try {
@@ -67,7 +67,6 @@ function App () {
   useEffect(() => {
     createTables()
   }, [])
-
 
   if (!isOnboardingCompleted) {
     // Si le Onboarding n'est pas terminé, affiche le composant Onboarding

@@ -1,4 +1,4 @@
-import { Button, StyleSheet, Text, View } from 'react-native'
+import { Button, Text, View } from 'react-native'
 import { styles } from '../styles/HomeStyle'
 import { useEffect } from 'react'
 import { getUserLocation, registerUserLocation } from '../database/db-service'
@@ -19,17 +19,5 @@ function Home ({ navigation }) {
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: 'black'
-  },
-  text: {
-    color: 'black'
-  }
-})
 
 export default Home
